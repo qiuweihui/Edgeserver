@@ -11,17 +11,10 @@
         <module name="spring-api" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="Authentication-master" target="1.5" />
-      <module name="EdgeServer" target="1.5" />
-      <module name="springboot-api" target="1.8" />
-      <module name="Vehicle" target="11" />
-    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="spring-api" options="-parameters" />
-      <module name="springboot-api" options="-parameters" />
       <module name="springboot-utils" options="-parameters" />
     </option>
   </component>

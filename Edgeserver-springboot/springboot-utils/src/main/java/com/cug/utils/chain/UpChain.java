@@ -28,21 +28,16 @@ public class UpChain {
             connection.setRequestMethod("POST");
             connection.setUseCaches(false);
             connection.setInstanceFollowRedirects(true);
-
             connection.setRequestProperty("Content-Type","application/json; charset=UTF-8");
-
             connection.connect();
 
             //POST请求
             DataOutputStream out = new DataOutputStream(connection.getOutputStream());
             JSONObject obj = new JSONObject();
-
             obj.put("serverId", "2001");
             // SID
-
             obj.put("pubKeyHash", HashCompute.hashCompute("D:\\TestData\\EdgeServer\\pubkey.json","pubkey"));
             //上传服务器公钥哈希
-
             out.write(obj.toString().getBytes("UTF-8"));
             out.flush();
             out.close();

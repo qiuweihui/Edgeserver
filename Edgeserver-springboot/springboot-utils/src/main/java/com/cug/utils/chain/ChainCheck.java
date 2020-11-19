@@ -19,7 +19,6 @@ public class ChainCheck {
     public static final String ADD_URL = "http://mgds.mingbyte.com/carbaas/verifyVehicleKey";
     public static int a ;
     public static int appadd(String keypath) {
-
         try{
             //创建连接
             URL url = new URL(ADD_URL);
@@ -29,9 +28,7 @@ public class ChainCheck {
             connection.setRequestMethod("POST");
             connection.setUseCaches(false);
             connection.setInstanceFollowRedirects(true);
-
             connection.setRequestProperty("Content-Type","application/json; charset=UTF-8");
-
             connection.connect();
 
             //POST请求

@@ -4,7 +4,6 @@ import cn.hutool.core.io.IoUtil;
 import com.cug.utils.utils.Input;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.pqc.math.linearalgebra.ByteUtils;
-
 import javax.crypto.Cipher;
 import javax.crypto.CipherOutputStream;
 import javax.crypto.NoSuchPaddingException;
@@ -24,29 +23,27 @@ import java.security.Security;
  */
 public class ImageDecrypt {
 
-    public static void main(String[] args) throws Exception {
+    public static String main() throws Exception {
 
         String dp = "D:\\TestData\\EdgeServer\\EncryptData\\encrypt";
         //加密后文件
         String dp2 = "D:\\TestData\\EdgeServer\\DecryptData\\decrypt.avi";
-        //解密后文件，指定文件格式，如.jpg.mp4可直接播放
+        //解密后文件，指定文件格式，如.jpg.mp4.avi可直接显示播放
 
         String key = jsonToString("D:\\TestData\\EdgeServer\\sm4key.json","sm4key");
         byte[] keyData = ByteUtils.fromHexString(key);
         //解密文件并输出存储
         decryptFile(keyData, dp, dp2);
-
+        return dp2;
     }
-
 
     static {
         if (Security.getProvider(BouncyCastleProvider.PROVIDER_NAME) == null) {
-            //No such provider: BC
             Security.addProvider(new BouncyCastleProvider());
         }
     }
-    //生成 Cipher
 
+    //生成 Cipher
     public static Cipher generateCipher(int mode, byte[] keyData) throws InvalidKeyException, NoSuchPaddingException, NoSuchAlgorithmException, NoSuchProviderException, java.security.InvalidKeyException {
         Cipher cipher = Cipher.getInstance("SM4/ECB/PKCS5Padding", BouncyCastleProvider.PROVIDER_NAME);
         Key sm4Key = new SecretKeySpec(keyData, "SM4");
@@ -69,9 +66,7 @@ public class ImageDecrypt {
             in = new FileInputStream(sourcePath);
             byte[] bytes = IoUtil.readBytes(in);
             byteArrayInputStream = IoUtil.toStream(bytes);
-
             Cipher cipher = generateCipher(Cipher.DECRYPT_MODE, keyData);
-
             out = new FileOutputStream(targetPath);
             cipherOutputStream = new CipherOutputStream(out, cipher);
             IoUtil.copy(byteArrayInputStream, cipherOutputStream);
@@ -94,6 +89,7 @@ public class ImageDecrypt {
             IoUtil.close(in);
         }
     }
+
     public static String jsonToString(String path , String key) throws Exception {
         String fi = Input.getString(path);
         com.alibaba.fastjson.JSONObject jsonObject = com.alibaba.fastjson.JSONObject.parseObject(fi);

@@ -1,6 +1,6 @@
 package com.cug.utils.server;
 
-import cn.hutool.json.JSONObject;
+import com.alibaba.fastjson.JSONObject;
 import com.cug.utils.utils.Output;
 
 /**
@@ -11,10 +11,11 @@ import com.cug.utils.utils.Output;
  */
 public class TokenCreate {
 
-    public static void main(String[] args) {
-        JSONObject jsonkey =new  JSONObject();
-        jsonkey.accumulate("Token", "TokenExample");
-        Output.wirteText(String.valueOf(jsonkey),"D:\\TestData\\EdgeServer\\Token.json");
+    public static Object main() {
+        JSONObject jsonToken =new  JSONObject();
+        jsonToken.put("Token", "TokenExample");
+        Output.wirteText(String.valueOf(jsonToken),"D:\\TestData\\EdgeServer\\Token.json");
+        return jsonToken;
     }
 
 }

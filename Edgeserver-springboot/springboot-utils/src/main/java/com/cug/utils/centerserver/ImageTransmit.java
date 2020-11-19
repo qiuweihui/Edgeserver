@@ -11,10 +11,10 @@ import java.io.IOException;
  * 边缘服务器将视频图片数据传送到中心服务器,角色为Client
  * 步骤9
  */
-public class DataTransmit extends Client {
+public class ImageTransmit extends Client {
 
     public static void main(String[] args) throws IOException {
-        DataTransmit.start("D:\\TestData\\EdgeServer\\DecryptData\\decrypt.avi");
+        ImageTransmit.start("D:\\TestData\\EdgeServer\\DecryptData\\decrypt.avi");
         //转发已解密的视频到中心服务器
     }
 

@@ -45,7 +45,7 @@ public class DataTransmit {
             msg = "上传失败";
         }
 
-        //2.ImageDecrypt,解密视频,返回解密后的视频地址
+        //2.ImageDecrypt,解密视频,adress是解密后的视频地址
         try {
              adress = ImageDecrypt.main();
         } catch (Exception e) {

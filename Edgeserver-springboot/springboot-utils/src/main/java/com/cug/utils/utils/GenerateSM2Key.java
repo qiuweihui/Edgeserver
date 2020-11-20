@@ -13,17 +13,17 @@ import java.io.IOException;
  * 预备步骤，只在初始化时执行一次,EdgeServer
  */
 public class GenerateSM2Key {
-    public static void main(String[] args) throws IOException {
+    public static void main(String pubkey, String prikey) throws IOException {
 
         SM2KeyVO sm2KeyVO = generateSM2Key();
         JSONObject jsonkey =new  JSONObject();
         jsonkey.accumulate("pubkey",sm2KeyVO.getPubHexInSoft());
-        Output.wirteText(String.valueOf(jsonkey),"D:\\TestData\\EdgeServer\\pubkey.json");
+        Output.wirteText(String.valueOf(jsonkey),pubkey);
         //生成的公钥
 
         JSONObject jsonkey1 =new  JSONObject();
         jsonkey1.accumulate("prikey",sm2KeyVO.getPriHexInSoft());
-        Output.wirteText(String.valueOf(jsonkey1),"D:\\TestData\\EdgeServer\\prikey.json");
+        Output.wirteText(String.valueOf(jsonkey1),prikey);
         //生成的私钥
     }
 

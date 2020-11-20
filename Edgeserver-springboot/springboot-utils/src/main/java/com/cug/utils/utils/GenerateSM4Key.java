@@ -17,13 +17,13 @@ import static cn.hutool.crypto.symmetric.SM4.ALGORITHM_NAME;
 public class GenerateSM4Key {
     public static final int KEY_SIZE = 128;
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String keypath) throws Exception {
 
         //生成Key并输出到指定位置存储
         byte[] bytes = generateKey(KEY_SIZE);
         JSONObject jsonkey =new  JSONObject();
         jsonkey.accumulate("sm4key",ByteUtils.toHexString(bytes));
-        Output.wirteText(String.valueOf(jsonkey),"D:\\TestData\\EdgeServer\\sm4key.json");
+        Output.wirteText(String.valueOf(jsonkey),keypath);
         //输出到服务器存储，之后还要用于对视频图片的解密
 
     }

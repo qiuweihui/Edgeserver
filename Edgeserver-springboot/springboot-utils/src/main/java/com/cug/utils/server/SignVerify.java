@@ -31,7 +31,7 @@ public class SignVerify {
         //签名
         String src = jsonToString("D:\\TestData\\EdgeServer\\broadcast_receive.json","VID_Time");
         String srcHex = Util.byteToHex(src.getBytes());
-        //读入签名的原内容,将其转成Hex字符串
+        //读入签名的原内容（VID_Time）,将其转成Hex字符串
 
         String pubkey = jsonToString("D:\\TestData\\EdgeServer\\broadcast_receive.json","pubkey");
         //读入小车公钥

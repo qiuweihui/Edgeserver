@@ -18,20 +18,19 @@ import java.io.IOException;
 public class KeyEncrypt {
     public static Object main() throws Exception {
 
-        String jsonkey = Input.getString("D:\\TestData\\EdgeServer\\pubkey.json");
         //读入服务器SM2公钥
+        String jsonkey = Input.getString("D:\\TestData\\EdgeServer\\pubkey.json");
         JSONObject jsonObject = JSONObject.parseObject(jsonkey);
         String src = jsonObject.getString("pubkey");
 
-        String jsonkey1 = Input.getString("D:\\TestData\\EdgeServer\\sm4key.json");
         //读入SM4密钥
+        String jsonkey1 = Input.getString("D:\\TestData\\EdgeServer\\sm4key.json");
         JSONObject jsonObject1 = JSONObject.parseObject(jsonkey1);
         String src1 = jsonObject1.getString("sm4key");
-
         String src12 = src + src1;
 
-        String jsonkey2 = Input.getString("D:\\TestData\\EdgeServer\\broadcast_receive.json");
         //读入接收到的小车SM2公钥
+        String jsonkey2 = Input.getString("D:\\TestData\\EdgeServer\\broadcast_receive.json");
         JSONObject jsonObject2 = JSONObject.parseObject(jsonkey2);
         String pubkey_vehicle = jsonObject2.getString("pubkey");
 
@@ -39,7 +38,6 @@ public class KeyEncrypt {
         //(公钥，源文件)
 
         JSONObject keyEncrypt =new JSONObject();
-        //不同库中的同名类要加前缀
         keyEncrypt.put("encrypt",SM2Enc);
 
         Output.wirteText(String.valueOf(keyEncrypt),"D:\\TestData\\EdgeServer\\key_encrypt.json");

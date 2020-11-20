@@ -1,7 +1,6 @@
 package com.cug.springapi.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.cug.springapi.utils.Transmit;
 import com.cug.utils.server.ImageDecrypt;
 import com.cug.utils.server.TokenCreate;
 import org.springframework.web.bind.annotation.*;

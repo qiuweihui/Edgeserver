@@ -47,11 +47,11 @@ public class Broadcast {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        //接收车发来的三个信息，签名，原文VID_Time,公钥
         JSONObject getObject = new  JSONObject();
         getObject.put("pubkey",pubkey);
         getObject.put("sm2_sign",sm2_sign);
-        getObject.put("VID_Time",VID_Time);
+        getObject.put("VID",VID_Time);
 
         //1.BroadcastReceive，接收并存储
         Output.wirteText(String.valueOf(getObject),"D:\\TestData\\EdgeServer\\broadcast_receive.json");
@@ -78,7 +78,7 @@ public class Broadcast {
                 e.printStackTrace();
             }
 
-            //5.Signature，用服务器私钥，对SID和时间Time进行签名
+            //5.Signature，用服务器私钥，对SID和时间Time进行签名，返回结果为签名内容和原文
             Object signature = null;
             try {
                 signature = Signature.main();
@@ -87,22 +87,11 @@ public class Broadcast {
             }
 
             JSONObject object = new  JSONObject();
-            //6.添加SID_Time到返回的object中
-            String sIDTime = null;
-            try {
-                sIDTime = Input.getString("D:\\TestData\\EdgeServer\\SID_Time.json");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            //读入接收到的小车SM2公钥
-            JSONObject sTobject = JSONObject.parseObject(sIDTime);
 
-            object.putAll(sTobject);
-            object.putAll((Map<? extends String, ? extends Object>) keyEncrypt);
-            object.putAll((Map<? extends String, ? extends Object>) signature);
             object.put("code","200");
             object.put("Message","验证通过");
-
+            object.putAll((Map<? extends String, ? extends Object>) keyEncrypt);
+            object.putAll((Map<? extends String, ? extends Object>) signature);
             return object;
         }
         else {
@@ -113,4 +102,6 @@ public class Broadcast {
         }
 
     }
+
+
 }

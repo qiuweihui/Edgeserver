@@ -9,16 +9,23 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.cug</groupId>
-	<artifactId>spring-api</artifactId>
+	<artifactId>springboot-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>spring-api</name>
+	<name>springboot-api</name>
 	<description>Demo project for Spring Boot</description>
+	<packaging>jar</packaging>
 
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
 
 	<dependencies>
+		<dependency>
+			<groupId>com.cug</groupId>
+			<artifactId>springboot-utils</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<!--引用springboot-utils项目 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
@@ -29,12 +36,6 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>com.cug</groupId>
-			<artifactId>springboot-utils</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<!--引用springboot-utils项目 -->
 
 	</dependencies>
 

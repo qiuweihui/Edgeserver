@@ -9,6 +9,10 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
 
+    <modules>
+        <module>springboot-api</module>
+        <module>springboot-utils</module>
+    </modules>
     <build>
         <plugins>
             <plugin>
@@ -27,10 +31,6 @@
             <!--添加配置跳过测试-->
         </plugins>
     </build>
-    <modules>
-        <module>springboot-api</module>
-        <module>springboot-utils</module>
-    </modules>
     <dependencies>
         <dependency>
             <groupId>org.bouncycastle</groupId>

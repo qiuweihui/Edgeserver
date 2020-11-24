@@ -51,7 +51,7 @@ public class Broadcast {
         JSONObject getObject = new  JSONObject();
         getObject.put("pubkey",pubkey);
         getObject.put("sm2_sign",sm2_sign);
-        getObject.put("VID",VID_Time);
+        getObject.put("VID_Time",VID_Time);
 
         //1.BroadcastReceive，接收并存储
         Output.wirteText(String.valueOf(getObject),"D:\\TestData\\EdgeServer\\broadcast_receive.json");

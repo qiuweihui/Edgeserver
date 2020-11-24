@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="SM2_SM3_SM4Encrypt-1.0-SNAPSHOT">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../SM2_SM3_SM4Encrypt-1.0-SNAPSHOT.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../Maven/LocalRepository/cn/xjfme/SM2_SM3_SM4Encrypt/1.0-SNAPSHOT/SM2_SM3_SM4Encrypt-1.0-SNAPSHOT.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

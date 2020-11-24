@@ -18,6 +18,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.3.6.RELEASE</version>
             </plugin>
             <!--添加配置跳过测试-->
             <plugin>
@@ -26,9 +27,18 @@
                 <version>2.22.2</version>
                 <configuration>
                     <skipTests>true</skipTests>
+
                 </configuration>
             </plugin>
-            <!--添加配置跳过测试-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
     <dependencies>
@@ -40,8 +50,6 @@
         <dependency>
             <groupId>cn.xjfme.encrypt</groupId>
             <artifactId>SM2_SM3_SM4Encrypt-1.0-SNAPSHOT</artifactId>
-            <scope>system</scope>
-            <systemPath>D:/Java/Workspace/Edgeserver-springboot/codec/SM2_SM3_SM4Encrypt-1.0-SNAPSHOT.jar</systemPath>
             <version>1.0</version>
         </dependency>
         <dependency>
@@ -49,12 +57,7 @@
             <artifactId>bcprov-jdk15on</artifactId>
             <version>1.56</version>
         </dependency>
-        <!--引用springboot-utils项目 -->
-        <dependency>
-            <groupId>com.cug</groupId>
-            <artifactId>springboot-utils</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
+
     </dependencies>
 
 

@@ -38,46 +38,48 @@ public class DataTransmit {
         try {
             file.transferTo(dest);
             //上传成功！
-            msg = "上传成功";
+            msg = "上传到边缘服务器成功";
         } catch (IOException e) {
             //上传异常！
-            msg = "上传失败";
+            msg = "上传到边缘服务器失败";
         }
         switch (msg){
-            case "上传成功":
+            case "上传到边缘服务器成功":
                 //2.ImageDecrypt,解密视频,videoPath是解密后的视频地址
                 try {
                     videoPath = ImageDecrypt.main();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
-                //3.ImageTransmit,传入解密视频路径和中心服务器ip,发送至中心服务器
-
+                //3.ImageTransmit,传入解密视频路径和中心服务器url,发送至中心服务器
+                String str = com.cug.utils.centerserver.DataTransmit.send(videoPath);
                 //4.TransimitResponse，接收中心服务器的响应
-                //无中心服务器，暂时跳过3、4步
+                boolean status = str.contains("成功");
+                if (status){
+                    //5.TokenCreate，生成Token
+                    Object jsonToken = TokenCreate.main();
+                    //6.object返回Token及消息
+                    JSONObject object = new  JSONObject();
+                    object.putAll((Map<? extends String, ? extends Object>) jsonToken);
+                    object.put("code","200");
+                    object.put("message",msg +"，上传到中心服务器成功！");
+                    return object;
+                }else{
+                    //上传到中心服务器失败
+                    JSONObject object = new  JSONObject();
+                    object.put("code","434");
+                    object.put("status",msg +"，上传到中心服务器失败！");
+                    return object;
+                }
 
-                //5.TokenCreate，生成Token
-                Object jsonToken = TokenCreate.main();
-
-                //6.object返回Token及消息
-                JSONObject object = new  JSONObject();
-                object.putAll((Map<? extends String, ? extends Object>) jsonToken);
-                object.put("code","200");
-                object.put("message",msg +"，解密成功！");
-                object.put("videoPath",videoPath);
-                return object;
-
-
-            case "上传失败":
+            case "上传到边缘服务器失败":
                 JSONObject object1 = new  JSONObject();
-                object1.put("code","200");
+                object1.put("code","424");
                 object1.put("message",msg);
                 return object1;
-
             default:
                 JSONObject object2 = new  JSONObject();
-                object2.put("code","200");
+                object2.put("code","424");
                 object2.put("message",msg);
                 return object2;
         }

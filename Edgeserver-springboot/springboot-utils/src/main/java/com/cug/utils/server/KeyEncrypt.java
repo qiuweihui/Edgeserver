@@ -23,13 +23,13 @@ public class KeyEncrypt {
         JSONObject jsonObject = JSONObject.parseObject(jsonkey);
         String src = jsonObject.getString("pubkey");
 
-        //读入SM4密钥
+        //读入SM4密钥，和公钥串接
         String jsonkey1 = Input.getString("D:\\TestData\\EdgeServer\\sm4key.json");
         JSONObject jsonObject1 = JSONObject.parseObject(jsonkey1);
         String src1 = jsonObject1.getString("sm4key");
         String src12 = src + src1;
 
-        //读入接收到的小车SM2公钥
+        //读入接收到的小车SM2公钥，用于加密
         String jsonkey2 = Input.getString("D:\\TestData\\EdgeServer\\broadcast_receive.json");
         JSONObject jsonObject2 = JSONObject.parseObject(jsonkey2);
         String pubkey_vehicle = jsonObject2.getString("pubkey");

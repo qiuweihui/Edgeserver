@@ -15,23 +15,12 @@
 	<description>Demo project for Spring Boot</description>
 	<packaging>jar</packaging>
 
-	<properties>
-		<java.version>1.8</java.version>
-	</properties>
-
 	<dependencies>
-		<dependency>
+		<dependency><!--引用springboot-utils项目 -->
 			<groupId>com.cug</groupId>
 			<artifactId>springboot-utils</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-		<!--引用springboot-utils项目 -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
-			<version>2.3.6.RELEASE</version>
-		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -41,11 +30,18 @@
 
 	</dependencies>
 
+	<properties>
+		<java.version>1.8</java.version>
+	</properties>
+
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<executable>true</executable>
+				</configuration>
 			</plugin>
 			<!--添加配置跳过测试-->
 			<plugin>
@@ -58,6 +54,7 @@
 			</plugin>
 			<!--添加配置跳过测试-->
 		</plugins>
+
 	</build>
 
 </project>

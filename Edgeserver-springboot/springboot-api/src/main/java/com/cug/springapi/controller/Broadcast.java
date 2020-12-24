@@ -6,7 +6,6 @@ import com.cug.utils.chain.ChainCheck;
 import com.cug.utils.server.KeyEncrypt;
 import com.cug.utils.server.SignVerify;
 import com.cug.utils.server.Signature;
-import com.cug.utils.utils.Input;
 import com.cug.utils.utils.Output;
 import org.springframework.web.bind.annotation.*;
 import java.util.Map;
@@ -27,7 +26,7 @@ import java.util.Map;
 public class Broadcast {
 
     @PostMapping("/broadcast")
-    public static Object receive(@RequestBody JSONObject jsonObject ) {
+    public static Object receive(@RequestBody JSONObject jsonObject ) throws Exception {
 
         String pubkey = null;
         try {
@@ -57,8 +56,8 @@ public class Broadcast {
         Output.wirteText(String.valueOf(getObject),"D:\\TestData\\EdgeServer\\broadcast_receive.json");
 
         //2.ChainCheck,提出VID，计算hash(PKv),到区块链核验(VID：hash(PKv))
-        int a = ChainCheck.appadd("D:\\TestData\\EdgeServer\\broadcast_receive.json");
-
+        int a = ChainCheck.send("D:\\TestData\\EdgeServer\\broadcast_receive.json");
+        System.out.println(a);
         //3.SignVerify,用PKv和原文验证签名S
         boolean b = false;
         try {
@@ -67,9 +66,9 @@ public class Broadcast {
             e.printStackTrace();
         }
 
-        if (a == 1 && b == true){
+        if (a == 1 && b){
             //表示核验通过和签名验证通过
-
+            System.out.println("身份和签名验证通过");
             //4.KeyEncrypt，使用接收到的小车SM2公钥，对服务器公钥和SM4Key密钥加密
             Object keyEncrypt = null;
             try {
@@ -87,7 +86,6 @@ public class Broadcast {
             }
 
             JSONObject object = new  JSONObject();
-
             object.put("code","200");
             object.put("Message","验证通过");
             object.putAll((Map<? extends String, ? extends Object>) keyEncrypt);
@@ -102,6 +100,5 @@ public class Broadcast {
         }
 
     }
-
 
 }

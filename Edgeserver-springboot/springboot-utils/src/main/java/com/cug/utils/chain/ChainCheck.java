@@ -1,12 +1,9 @@
 package com.cug.utils.chain;
 
-import cn.hutool.json.JSONObject;
+import com.alibaba.fastjson.JSONObject;
 import com.cug.utils.server.HashCompute;
-
-import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
+import com.cug.utils.utils.Input;
+import com.cug.utils.utils.Url;
 
 /**
  * @author qiuweihui
@@ -17,67 +14,21 @@ import java.net.URL;
  */
 public class ChainCheck {
     public static final String ADD_URL = "http://mgds.mingbyte.com/carbaas/verifyVehicleKey";
-    public static int a ;
-    public static int appadd(String keypath) {
-        try{
-            //创建连接
-            URL url = new URL(ADD_URL);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setDoOutput(true);
-            connection.setDoInput(true);
-            connection.setRequestMethod("POST");
-            connection.setUseCaches(false);
-            connection.setInstanceFollowRedirects(true);
-            connection.setRequestProperty("Content-Type","application/json; charset=UTF-8");
-            connection.connect();
 
-            //POST请求
-            DataOutputStream out = new DataOutputStream(connection.getOutputStream());
-            JSONObject obj = new JSONObject();
-            //边缘服务器端验证的是车的VID和公钥是否匹配
-            obj.put("vehicleId", "1001");
-            // VID，后面再调用VID返回函数
-
-            obj.put("pubKeyHash", HashCompute.hashCompute(keypath,"pubkey"));
-            //小车公钥的hash值计算并上传
-
-            out.write(obj.toString().getBytes("UTF-8"));
-            out.flush();
-            out.close();
-
-            //读取响应
-            BufferedReader reader = new BufferedReader(new InputStreamReader(
-                    connection.getInputStream()));
-            String lines;
-            StringBuffer sb = new StringBuffer("");
-            while ((lines = reader.readLine()) != null) {
-                lines = new String(lines.getBytes(), "utf-8");
-                sb.append(lines);
-            }
-
-            String result = sb.toString();
-            String PayLoad = result.substring(41,42);
-            a =Integer.valueOf(PayLoad);
-
-            reader.close();
-            // 断开连接
-            connection.disconnect();
-        } catch (MalformedURLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return a ;
+    public static int send(String keypath) throws Exception {
+        //边缘服务器端验证的是车的VID和公钥是否匹配
+        String jsonVID = Input.getString(keypath);
+        JSONObject jsonObject = JSONObject.parseObject(jsonVID);
+        String VID_Time = jsonObject.getString("VID_Time");
+        //取前四位为VID
+        String VID = VID_Time.substring(0,4);
+        JSONObject obj = new JSONObject();
+        obj.put("vehicleId", VID);
+        // VID，后面再调用VID返回函数
+        obj.put("pubKeyHash", HashCompute.hashCompute(keypath,"pubkey"));
+        String payLoad = Url.send(ADD_URL,obj);
+        int a = Integer.parseInt(payLoad);
+        return a;
     }
 
-    public static void main(String[] args) {
-        appadd("D:\\TestData\\EdgeServer\\broadcast_receive.json");
-    }
 }

@@ -18,6 +18,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <executable>true</executable>
+                </configuration>
                 <version>2.3.6.RELEASE</version>
             </plugin>
             <!--添加配置跳过测试-->

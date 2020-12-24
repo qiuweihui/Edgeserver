@@ -14,7 +14,7 @@ public class TokenCreate {
     public static Object main() {
         JSONObject jsonToken =new  JSONObject();
         jsonToken.put("Token", "TokenExample");
-        Output.wirteText(String.valueOf(jsonToken),"D:\\TestData\\EdgeServer\\Token.json");
+        //Output.wirteText(String.valueOf(jsonToken),"/tmp/Java/TestData/EdgeServer/Token.json");
         return jsonToken;
     }
 
